@@ -7,22 +7,22 @@ VALUES
   (5, "Development"),
   (6, "Marketing");
 
-  INSERT INTO roles (id, title, salary, department_id)
+  INSERT INTO roles(id, title, salary, department_id)
 VALUES
   (1, "CFO", 250000, 1),
   (2, "Accountant", 100000, 1),
   (3, "HR Manager", 100000, 2),
   (4, "Customer Service Manager", 120000, 3),
-  (5, "Customer Service Representative", 90000, 3),
+  (5, "Customer Service Rep", 90000, 3),
   (6, "Head Technician", 120000, 4),
-  (7, "Technician", 100000, 4)
+  (7, "Technician", 100000, 4),
   (8, "Lead Developer", 150000, 5),
-  (9, "Mid-Level Developer", 100000, 5)
-  (10, "Junior Developer", 800000, 5)
+  (9, "Mid-Level Developer", 100000, 5),
+  (10, "Junior Developer", 800000, 5),
   (11, "Marketing Executive", 200000, 6),
   (12, "Marketing Assistant", 100000, 6);
   
-  INSERT INTO employees(first_name, last_name, role_id, manager_id)
+  INSERT INTO employees(first_name, last_name, role_id)
 VALUES
   ('Ronald', 'Firbank', 1),
   ('Virginia', 'Woolf', 2),
