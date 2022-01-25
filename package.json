@@ -1,0 +1,31 @@
+{
+  "name": "track-your-suits",
+  "version": "1.0.0",
+  "description": "Employee Tracker",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Naomilounsbury/track-your-suits.git"
+  },
+  "keywords": [
+    "track",
+    "employees"
+  ],
+  "author": "Naomi Lounsbury",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Naomilounsbury/track-your-suits/issues"
+  },
+  "homepage": "https://github.com/Naomilounsbury/track-your-suits#readme",
+  "dependencies": {
+    "express": "^4.17.2",
+    "inquirer": "^8.2.0",
+    "mysql2": "^2.3.3"
+  },
+  "devDependencies": {
+    "jest": "^27.4.7"
+  }
+}
