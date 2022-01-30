@@ -7,6 +7,7 @@
 
 //destructuring inquirer because I'm only using prompt and so i don't need all that other stuff with inquirer, might add validation later if I feel like it
 const { prompt } = require("inquirer");
+require("console.table")
 //pulling in my class
 const Db = require("./db")
 //pulling the connection to the connection to the database
@@ -24,7 +25,6 @@ const departmentQuestions = [
 ]
 
 function viewAndChoose() {
-    console.log("Let's get started")
 
     prompt([
 
@@ -72,11 +72,11 @@ function viewAndChoose() {
                 break;
 
             case "Update an employee role":
-                employee()
+                updateRoleId()
                 break;
 
             case "Update a manager":
-                employee()
+                updateManagerId()
                 break;
 
             case "Finish":
@@ -150,12 +150,17 @@ function addRole() {
 }
 function addEmployee() {
 
+
     mysql.viewRoles().then(data => {
+        // const departmentChoice = data[0].map(department => {
+        //     return { name: role.title, value: department_id}
+        // });
 
         const roleChoices = data[0].map(role => {
-            return { name: role.title, value: role.id }
+            return { name: role.title, value: `${role.id}-${role.department_id}` }
 
         });
+
         prompt([
             {
                 type: 'input',
@@ -175,23 +180,31 @@ function addEmployee() {
                 //viewrole right here and see what happens, I don't need curly braces because map brings back an array
                 choices: roleChoices
             },
+            {
+                type: 'confirm',
+                name: 'manager',
+                message: "Is this person a manager?",
+            },
+        ]).then((nameAndRole) => {
 
-        ]).then((employeeData) => {
-        
-            mysql.getDepartmentByRole(employeeData.role_id).then(departmentId => {
-                mysql.getManagerByDepartmentId(departmentId).then(data => {
-                    console.log(data)
-                    mysql.makeEmployee({ ...employeeData, manager_id: data})
-                    
-                    viewAndChoose()
-                })
-            })
+            const [roleId, departmentId] = nameAndRole.role_id.split("-")
+            mysql.getManagerByDepartmentId(departmentId).then(data => {
+                const managerChoices = data[0][0]
+                const combinedData = { ...nameAndRole, role_id: roleId, manager_id: nameAndRole.manager ? null : managerChoices.id }
+                //apparently this is very bad
+                delete combinedData.manager
+                //ternary, the question mark checks if the nameandroll.manager is truthy and if it is it returns null, if it isn't then it returns the first id in the array of managers for that department
+                mysql.makeEmployee(combinedData)
+
+                viewAndChoose()
 
 
+            }) //     })
         })
     })
 
 }
+
 function delDepartment() {
     mysql.viewDepartment().then(data => {
         const departmentChoices = data[0].map(department => {
@@ -248,5 +261,69 @@ function delEmployee() {
         })
     });
 }
-
+function updateRoleId() {
+    mysql.viewEmployees().then(data => {
+        const employeeChoices = data[0].map(employee => {
+            return { name: `${employee.first_name} ${employee.last_name}`, value: employee.id }
+        })
+        prompt([
+            {
+                type: 'list',
+                name: 'id',
+                message: "Please choose the employee to be updated",
+                choices: employeeChoices
+            },
+        ]).then((employeeData) => {
+            mysql.viewRoles().then(data => {
+                const roleChoices = data[0].map(role => {
+                    return { name: role.title, value: role.id }
+                })
+                prompt([
+                    {
+                        type: 'list',
+                        name: 'id',
+                        message: "What is this employees new role?",
+                        choices: roleChoices
+                    },
+                ]).then(roleData => {
+                    mysql.updateEmployeeRole(roleData.id, employeeData.id)
+                    viewAndChoose()
+                })
+            })
+        })
+    });
+}
+function updateManagerId() {
+    mysql.viewEmployees().then(data => {
+        const employeeChoices = data[0].map(employee => {
+            return { name: `${employee.first_name} ${employee.last_name}`, value: employee.id }
+        })
+        prompt([
+            {
+                type: 'list',
+                name: 'id',
+                message: "Please choose the employee whose manager you would like to update",
+                choices: employeeChoices
+            },
+        ]).then((employeeData) => {
+            mysql.getAllManagers().then(data => {
+                const managerChoices = data[0].map(manager => {
+                    return { name: `${manager.first_name} ${manager.last_name}` , value: manager.id }
+                })
+                prompt([
+                    {
+                        type: 'list',
+                        name: 'id',
+                        message: "Who is this employee's new manager?",
+                        choices: managerChoices
+                    },
+                ]).then(managerData => {
+                    mysql.updateEmployeeManager(managerData.id, employeeData.id)
+                    viewAndChoose()
+                })
+            })
+        })
+    });
+}
+console.log("Let's get started!")
 viewAndChoose()

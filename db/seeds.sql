@@ -21,36 +21,26 @@ VALUES
   (9, "Mid-Level Developer", 100000, 5),
   (10, "Junior Developer", 80000, 5),
   (11, "Marketing Executive", 200000, 6),
-  (12, "Marketing Assistant", 100000, 6);
+  (12, "Marketing Assistant", 100000, 6),
+  (13, "Customer Service Manager", 100000, 3);
   
-  
-  
-  INSERT INTO managers (id, title, department_id)
-  VALUES
-  (1, "Accounting Manager", 1),
-  (2, "HR Manager", 2),
-  (3, "Service Manager", 3),
-  (4, "IT Manager", 4),
-  (5, "Development Manager", 5),
-  (6, "Marketing Manager", 6),
-  (7, "Executive Manager", 7);
 
   INSERT INTO employees(first_name, last_name, role_id, manager_id)
 VALUES
-  ('Ronald', 'Firbank', 1, 1),
+  ('Ronald', 'Firbank', 1, NULL),
   ('Virginia', 'Woolf', 2, 1),
   ('Piers', 'Gaveston', 2, 1),
   ('Charles', 'LeRoi', 3, NULL),
-  ('Katherine', 'Mansfield', 4, NULL),
-  ('Dora', 'Carrington', 5, NULL),
-  ('Edward', 'Bellamy', 6, 4),
-  ('Montague', 'Summers', 4, NULL),
-  ('Octavia', 'Butler', 5, NULL),
-  ('Unica', 'Zurn', 3, NULL),
+  ('Katherine', 'Mansfield', 4, 4),
+  ('Dora', 'Carrington', 13, NULL),
+  ('Edward', 'Bellamy', 6, NULL),
+  ('Montague', 'Summers', 4, 4),
+  ('Octavia', 'Butler', 5, 6),
+  ('Unica', 'Zurn', 4, 4),
   ("Orla", "Costa", 7, 4),
-  ("Alysia", "Slater", 8, 5),
-  ("Edwin","Kumar", 9, 5),
-  ("Otto", "Peacock", 10, 5),
-  ("Jeffery", "Trainor", 11, 6),
-  ("Regan", "Calhoun", 12, 6),
-  ("Kaia", "Blair", 12, 6);
+  ("Alysia", "Slater", 8, NULL),
+  ("Edwin","Kumar", 9, 12),
+  ("Otto", "Peacock", 10, 12),
+  ("Jeffery", "Trainor", 11, NULL),
+  ("Regan", "Calhoun", 12, 16),
+  ("Kaia", "Blair", 12, 16);

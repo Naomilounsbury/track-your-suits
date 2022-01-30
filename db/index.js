@@ -44,10 +44,25 @@ class Db{
     getDepartmentByRole(role){
         return this.connection.promise().query(`SELECT department_id FROM roles WHERE id = ?`, role)
     }
+    // getManagerByDepartmentId(department_id){
+    //     return this.connection.promise().query(`SELECT id FROM employees WHERE department_id = ? AND manager_id = NULL `, department_id)
+    // }
     getManagerByDepartmentId(department_id){
-        return this.connection.promise().query(`SELECT id FROM managers WHERE department_id = ?`, department_id)
+        return this.connection.promise().query(`SELECT roles.department_id, employees.role_id, employees.id, employees.manager_id FROM roles LEFT JOIN employees ON employees.role_id = roles.id WHERE employees.manager_id IS NULL AND roles.department_id = ?`, department_id)
     }
-//     updateEmployeeRole(){}
+    joinDepartmentsToRoles(){
+        return this.connection.promise().query(`SELECT * FROM departments LEFT JOIN roles ON departments.id = roles.department_id`)
+    }
+//did square brackets here so it knows which order to put things in
+    updateEmployeeRole(roleId, employeeId){
+        return this.connection.promise().query(`UPDATE employees SET role_id = ? WHERE id = ?`, [roleId, employeeId])
+    }
+    updateEmployeeManager(managerId, employeeId){
+        return this.connection.promise().query(`UPDATE employees SET manager_id = ? WHERE id = ?`, [managerId, employeeId])
+    }
+    getAllManagers(){
+        return this.connection.promise().query(`SELECT * FROM employees WHERE employees.manager_id IS NULL`)
+    }
 
 }
 module.exports = Db
