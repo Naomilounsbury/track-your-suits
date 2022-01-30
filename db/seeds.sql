@@ -1,4 +1,4 @@
-INSERT INTO departments (id, name)
+INSERT INTO departments(id, name)
 VALUES
   (1, "Accounting"),
   (2, "Human Resources"),
@@ -21,31 +21,36 @@ VALUES
   (9, "Mid-Level Developer", 100000, 5),
   (10, "Junior Developer", 80000, 5),
   (11, "Marketing Executive", 200000, 6),
-  (12, "Marketing Assistant", 100000, 6),
-  (13, "Accounting Manager", 100000, 1),
-  (14, "HR Manager", 100000, 2),
-  (15, "Service Manager", 100000, 3),
-  (16, "IT Manager", 100000, 4),
-  (17, "Development Manager", 100000, 5),
-  (18, "Marketing Manager", 100000, 6),
-  (19, "Executive Manager", 100000, 6);
+  (12, "Marketing Assistant", 100000, 6);
   
-  INSERT INTO employees(first_name, last_name, role_id)
+  
+  
+  INSERT INTO managers (id, title, department_id)
+  VALUES
+  (1, "Accounting Manager", 1),
+  (2, "HR Manager", 2),
+  (3, "Service Manager", 3),
+  (4, "IT Manager", 4),
+  (5, "Development Manager", 5),
+  (6, "Marketing Manager", 6),
+  (7, "Executive Manager", 7);
+
+  INSERT INTO employees(first_name, last_name, role_id, manager_id)
 VALUES
-  ('Ronald', 'Firbank', 1),
-  ('Virginia', 'Woolf', 2),
-  ('Piers', 'Gaveston', 2),
-  ('Charles', 'LeRoi', 3),
-  ('Katherine', 'Mansfield', 4),
-  ('Dora', 'Carrington', 5),
-  ('Edward', 'Bellamy', 6),
-  ('Montague', 'Summers', 4),
-  ('Octavia', 'Butler', 5),
-  ('Unica', 'Zurn', 3),
-  ("Orla", "Costa", 7),
-  ("Alysia", "Slater", 8),
-  ("Edwin","Kumar", 9),
-  ("Otto", "Peacock", 10),
-  ("Jeffery", "Trainor", 11),
-  ("Regan", "Calhoun", 12),
-  ("Kaia", "Blair", 12);
+  ('Ronald', 'Firbank', 1, 1),
+  ('Virginia', 'Woolf', 2, 1),
+  ('Piers', 'Gaveston', 2, 1),
+  ('Charles', 'LeRoi', 3, NULL),
+  ('Katherine', 'Mansfield', 4, NULL),
+  ('Dora', 'Carrington', 5, NULL),
+  ('Edward', 'Bellamy', 6, 4),
+  ('Montague', 'Summers', 4, NULL),
+  ('Octavia', 'Butler', 5, NULL),
+  ('Unica', 'Zurn', 3, NULL),
+  ("Orla", "Costa", 7, 4),
+  ("Alysia", "Slater", 8, 5),
+  ("Edwin","Kumar", 9, 5),
+  ("Otto", "Peacock", 10, 5),
+  ("Jeffery", "Trainor", 11, 6),
+  ("Regan", "Calhoun", 12, 6),
+  ("Kaia", "Blair", 12, 6);
