@@ -14,8 +14,8 @@ const Db = require("./db")
 const connection = require("./db/connection")
 //instanciated the Db class
 const mysql = new Db(connection)
-// const { writeFile } = require("./src/utils");
-// mysql.viewRoles().then(roles => console.log(roles))
+
+//originally made arrays to hold the questions but eventually just put them into the promts because it was only one question at a time
 const departmentQuestions = [
     {
         type: 'input',
@@ -23,7 +23,7 @@ const departmentQuestions = [
         message: "What is the department's name?",
     },
 ]
-
+//my giant function that switches between things i want to do
 function viewAndChoose() {
 
     prompt([
@@ -204,7 +204,6 @@ function addEmployee() {
     })
 
 }
-
 function delDepartment() {
     mysql.viewDepartment().then(data => {
         const departmentChoices = data[0].map(department => {
@@ -218,7 +217,6 @@ function delDepartment() {
                 choices: departmentChoices
             },
         ]).then((departmentData) => {
-            console.log(departmentData.id)
             mysql.deleteDepartment(departmentData.id)
             viewAndChoose()
         })
@@ -237,7 +235,6 @@ function delRole() {
                 choices: roleChoices
             },
         ]).then((roleData) => {
-            console.log(roleData.id)
             mysql.deleteRole(roleData.id)
             viewAndChoose()
         })
