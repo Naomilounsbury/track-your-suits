@@ -3,6 +3,7 @@
   * [Description](#description)
   * [Installation](#installation)
   * [Screenshot](#screenshot)
+  * [Video](#video)
   * [Questions](#questions)
 
   ## Description
@@ -17,6 +18,9 @@ This is a cli tool I made that uses mysql to track employees. with this cli, you
   Here is a screenshot of it working.
 
   ![screenshot](./images/trackyoursuitsscreenshot.png)
+
+  ## Video
+  [Here is the video](./images/Trackyoursuitsvid.webm)
 
 
   ## Questions
